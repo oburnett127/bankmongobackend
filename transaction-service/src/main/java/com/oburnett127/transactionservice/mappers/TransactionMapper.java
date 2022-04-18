@@ -1,35 +1,46 @@
 package com.oburnett127.transactionservice.mappers;
 
 import com.oburnett127.transactionservice.models.Transaction;
-import com.oburnett127.transactionservice.typehandlers.UuidTypeHandler;
 import org.apache.ibatis.annotations.*;
+import org.apache.ibatis.type.JdbcType;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
-import java.util.UUID;
+;
 
 public interface TransactionMapper {
     @Results({
-            @Result(property = "id", column = "id", javaType = UUID.class, typeHandler = UuidTypeHandler.class),
-            @Result(property = "fullName", column = "full_name", javaType = String.class),
-            @Result(property = "balance", column = "balance", javaType = BigDecimal.class)
+            @Result(property = "id", column = "id", javaType = Integer.class),
+            @Result(property = "account", column = "account", javaType = Integer.class),
+            @Result(property = "date", column = "date", javaType = Date.class),
+            @Result(property = "description", column = "description", javaType = String.class),
+            @Result(property = "transType", column = "trans_type", javaType = Integer.class),
+            @Result(property = "amount", column = "amount", javaType = BigDecimal.class),
+            @Result(property = "sender", column = "sender", javaType = Integer.class, jdbcType = JdbcType.BIGINT),
+            @Result(property = "receiver", column = "receiver", javaType = Integer.class, jdbcType = JdbcType.BIGINT)
     })
-    @Select("SELECT id, full_name, balance from transaction WHERE id = #{TransactionId}")
-    Transaction getTransaction(@Param("transactionId") final UUID transactionId);
+    @Select("SELECT id, account, date, description, trans_type, amount, sender, receiver from transaction WHERE id = #{transactionId}")
+    Transaction getTransaction(@Param("transactionId") final Integer transactionId);
 
     @Results({
-            @Result(property = "id", column = "id", javaType = UUID.class, typeHandler = UuidTypeHandler.class),
-            @Result(property = "fullName", column = "full_name", javaType = String.class),
-            @Result(property = "balance", column = "balance", javaType = BigDecimal.class)
+            @Result(property = "id", column = "id", javaType = Integer.class),
+            @Result(property = "account", column = "account", javaType = Integer.class),
+            @Result(property = "date", column = "date", javaType = Date.class),
+            @Result(property = "description", column = "description", javaType = String.class),
+            @Result(property = "transType", column = "trans_type", javaType = Integer.class),
+            @Result(property = "amount", column = "amount", javaType = BigDecimal.class),
+            @Result(property = "sender", column = "sender", javaType = Integer.class, jdbcType = JdbcType.BIGINT),
+            @Result(property = "receiver", column = "receiver", javaType = Integer.class, jdbcType = JdbcType.BIGINT)
     })
-    @Select("SELECT id, full_name, balance from transaction ORDER BY id DESC")
+    @Select("SELECT id, account, date, description, trans_type, amount, sender, receiver from transaction ORDER BY id DESC")
     List<Transaction> getAll();
 
-    @Update("UPDATE transaction SET full_name=#{fullName}, balance=#{balance}" +
-            " WHERE id = #{id,typeHandler=com.oburnett127.transactionservice.typehandlers.UuidTypeHandler}")
+    @Update("UPDATE transaction SET account=#{account}, date=#{date}, description=#{description}, trans_type=#{transType}, amount=#{amount}, sender=#{sender}, receiver=#{receiver}" +
+            " WHERE id = #{id}")
     void save(final Transaction transaction);
 
-    @Update("INSERT INTO transaction (full_name, balance) VALUES (#{fullName}, #{balance})")
+    @Update("INSERT INTO transaction (account, date, description, trans_type, amount, sender, receiver) VALUES (#{account}, #{date}, #{description}, #{transType}, #{amount}, #{sender}, #{receiver})")
     @Options(useGeneratedKeys = true, keyProperty = "id")
     void create(final Transaction transaction);
 }

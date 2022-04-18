@@ -20,7 +20,7 @@
 //
 //import java.math.BigDecimal;
 //import java.util.ArrayList;
-//import java.util.UUID;
+//;
 //import java.util.stream.IntStream;
 //import java.util.stream.Stream;
 //
@@ -76,7 +76,7 @@
 //
 //    @ParameterizedTest
 //    @MethodSource("getTransactionParams")
-//    public void testGetTransaction(final UUID id, final Transaction expected) {
+//    public void testGetTransaction(final int id, final Transaction expected) {
 //        final var mapper = mockMapperSession();
 //
 //        Mockito.when(mapper.getTransaction(id)).thenReturn(expected);
@@ -92,7 +92,7 @@
 //        final var expected = new ArrayList<Transaction>();
 //        IntStream.of(1, 2, 3).forEach(i -> {
 //            final var Transaction = Transaction.builder()
-//                    .id(UUID.randomUUID())
+//                    .id(int.randomint())
 //                    .fullName(Integer.toString(i))
 //                    .balance(BigDecimal.valueOf(i).multiply(BigDecimal.valueOf(5000L)))
 //                    .build();

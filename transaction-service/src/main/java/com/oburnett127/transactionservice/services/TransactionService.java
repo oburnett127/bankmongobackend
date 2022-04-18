@@ -6,10 +6,9 @@ import com.oburnett127.transactionservice.utils.TransactionValidator;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.UUID;
+;
 
 @Service
 @Slf4j
@@ -35,41 +34,23 @@ public class TransactionService implements TransactionOperations {
 
     @Override
     @SneakyThrows
-    public Transaction getTransaction(final UUID id) {
-        final var transaction = TransactionDao.getTransaction(id);
-
-        return transaction;
-    }
-
-    @Override
-    @SneakyThrows
-    public Transaction withdraw(UUID id, BigDecimal amount) {
+    public Transaction getTransaction(final int id) {
         final var transaction = transactionDao.getTransaction(id);
 
-        transactionValidator.withdraw(transaction, amount);
-
-        transaction.setBalance(transaction.getBalance().subtract(amount));
-
-        transactionDao.save(transaction);
-
         return transaction;
     }
 
-
-    @Override
-    @SneakyThrows
-    public Transaction transfer(UUID idSender, UUID idReceiver, BigDecimal amount) {
-        final var senderTransaction = TransactionDao.getTransaction(idSender);
-        final var receiverTransaction = TransactionDao.getTransaction(idReceiver);
-
-        TransactionValidator.transfer(senderTransaction, receiverTransaction, amount);
-
-        senderTransaction.setBalance(senderTransaction.getBalance().subtract(amount));
-        receiverTransaction.setBalance(receiverTransaction.getBalance().add(amount));
-
-        TransactionDao.save(senderTransaction);
-        TransactionDao.save(receiverTransaction);
-
-        return senderTransaction;
-    }
+//    @Override
+//    @SneakyThrows
+//    public Transaction withdraw(int id, BigDecimal amount) {
+//        final var transaction = transactionDao.getTransaction(id);
+//
+//        transactionValidator.withdraw(transaction, amount);
+//
+//        transaction.setBalance(transaction.getBalance().subtract(amount));
+//
+//        transactionDao.save(transaction);
+//
+//        return transaction;
+//    }
 }

@@ -5,7 +5,7 @@ import com.oburnett127.transactionservice.models.Transaction;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.stereotype.Repository;
 import java.util.List;
-import java.util.UUID;
+;
 
 @Repository
 public class TransactionDao {
@@ -15,7 +15,7 @@ public class TransactionDao {
         this.sqlSessionFactory = sqlSessionFactory;
     }
 
-    public Transaction getTransaction(final UUID id) {
+    public Transaction getTransaction(final int id) {
         try (final var session = sqlSessionFactory.openSession()) {
             final var mapper = session.getMapper(TransactionMapper.class);
             final var transaction = mapper.getTransaction(id);

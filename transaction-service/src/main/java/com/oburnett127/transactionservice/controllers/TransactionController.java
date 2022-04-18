@@ -1,10 +1,8 @@
 package com.oburnett127.transactionservice.controllers;
 
-import com.oburnett127.transactionservice.constants.DebugMessage;
 import com.oburnett127.transactionservice.factories.TransactionFactory;
 import com.oburnett127.transactionservice.models.*;
 import com.oburnett127.transactionservice.services.TransactionService;
-import com.oburnett127.transactionservice.services.transactionservice;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -46,7 +44,6 @@ public class TransactionController {
                         .description(createTransactionRequest.getDescription())
                         .transType(createTransactionRequest.getTransType())
                         .amount(createTransactionRequest.getAmount())
-                        .balanceRemaining(createTransactionRequest.getBalanceRemaining())
                         .sender(createTransactionRequest.getSender())
                         .receiver(createTransactionRequest.getReceiver())
                         .build();
@@ -55,13 +52,13 @@ public class TransactionController {
         return ResponseEntity.ok(transaction);
     }
 
-//    @PostMapping("/withdraw")
+//    @PostMapping("/update")
 //    public ResponseEntity<Transaction> updateTransaction
 //            (@Validated @RequestBody UpdateTransactionRequest updateTransactionRequest)
 //            throws IOException {
-//        final var id = withdrawRequest.getId();
-//        final var amount = withdrawRequest.getAmount();
-//        final var result = service.withdraw(id, amount);
+//        final var id = transactionReqest.getId();
+//        final var amount = transactionRequest.getAmount();
+//        final var result = service.update(id, amount);
 //        return ResponseEntity.ok().body(result);
 //    }
 }

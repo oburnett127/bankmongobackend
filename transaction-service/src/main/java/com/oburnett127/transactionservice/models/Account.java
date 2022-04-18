@@ -1,16 +1,16 @@
-package com.oburnett127.accountservice.models;
+package com.oburnett127.transactionservice.models;
 
 import lombok.Builder;
 import lombok.Data;
 
 import java.math.BigDecimal;
-import java.util.UUID;
+;
 
 @Data
 @Builder
 public class Account {
 
-	private UUID id;
+	private Integer account;
 	private String fullName;
 	private BigDecimal balance;
 }
