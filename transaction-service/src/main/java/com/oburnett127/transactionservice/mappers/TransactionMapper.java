@@ -36,11 +36,11 @@ public interface TransactionMapper {
     @Select("SELECT id, account, date, description, trans_type, amount, sender, receiver from transaction ORDER BY id DESC")
     List<Transaction> getAll();
 
-    @Update("UPDATE transaction SET account=#{account}, date=#{date}, description=#{description}, trans_type=#{transType}, amount=#{amount}, sender=#{sender}, receiver=#{receiver}" +
-            " WHERE id = #{id}")
-    void save(final Transaction transaction);
-
     @Update("INSERT INTO transaction (account, date, description, trans_type, amount, sender, receiver) VALUES (#{account}, #{date}, #{description}, #{transType}, #{amount}, #{sender}, #{receiver})")
     @Options(useGeneratedKeys = true, keyProperty = "id")
     void create(final Transaction transaction);
+
+//    @Update("UPDATE transaction SET account=#{account}, date=#{date}, description=#{description}, trans_type=#{transType}, amount=#{amount}, sender=#{sender}, receiver=#{receiver}" +
+//            " WHERE id = #{id}")
+//    void save(final Transaction transaction);
 }

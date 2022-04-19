@@ -29,16 +29,16 @@ public class TransactionController {
         return ResponseEntity.ok().body(result);
     }
 
-//    @GetMapping("/transaction")
-//    public ResponseEntity<Transaction> getTransaction(@Validated @RequestBody TransactionRequest transactionRequest) {
-//        final var transaction = service.getTransaction(transactionRequest.getId());
-//        return ResponseEntity.ok().body(transaction);
-//    }
+    @GetMapping("/get")
+    public ResponseEntity<Transaction> getTransaction(@Validated @RequestBody TransactionRequest transactionRequest) {
+        final var result = service.getTransaction(transactionRequest.getId());
+        return ResponseEntity.ok().body(result);
+    }
 
     @PostMapping("/create")
     public ResponseEntity<Transaction> createTransaction(@Validated @RequestBody CreateTransactionRequest createTransactionRequest) throws IOException {
         final TransactionFactory transactionFactory = new TransactionFactory();
-        final var transaction = Transaction.builder()
+        final var result = Transaction.builder()
                         .account(createTransactionRequest.getAccount())
                         .date(createTransactionRequest.getDate())
                         .description(createTransactionRequest.getDescription())
@@ -48,15 +48,17 @@ public class TransactionController {
                         .receiver(createTransactionRequest.getReceiver())
                         .build();
 
-        service.createTransaction(transaction);
-        return ResponseEntity.ok(transaction);
+        service.createTransaction(result);
+        return ResponseEntity.ok(result);
     }
 
+// I don't think being able to update and delete transactions will be necessary at this point, but
+// I'm leaving some code in the controller and service classes in case I decided to implement
 //    @PostMapping("/update")
 //    public ResponseEntity<Transaction> updateTransaction
 //            (@Validated @RequestBody UpdateTransactionRequest updateTransactionRequest)
 //            throws IOException {
-//        final var id = transactionReqest.getId();
+//        final var id = transactionRequest.getId();
 //        final var amount = transactionRequest.getAmount();
 //        final var result = service.update(id, amount);
 //        return ResponseEntity.ok().body(result);

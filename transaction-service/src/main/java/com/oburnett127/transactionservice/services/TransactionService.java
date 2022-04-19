@@ -28,16 +28,16 @@ public class TransactionService implements TransactionOperations {
     }
 
     @Override
-    public void createTransaction(Transaction transaction) {
-        this.transactionDao.create(transaction);
-    }
-
-    @Override
     @SneakyThrows
     public Transaction getTransaction(final int id) {
         final var transaction = transactionDao.getTransaction(id);
 
         return transaction;
+    }
+
+    @Override
+    public void createTransaction(Transaction transaction) {
+        this.transactionDao.create(transaction);
     }
 
 //    @Override

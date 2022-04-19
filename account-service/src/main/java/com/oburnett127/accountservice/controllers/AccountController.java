@@ -12,17 +12,14 @@ import com.oburnett127.accountservice.services.AccountService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.List;
 
 @CrossOrigin
 @RestController
+@RequestMapping("/account")
 @Slf4j
 public class AccountController {
 
@@ -32,13 +29,13 @@ public class AccountController {
         this.service = service;
     }
 
-    @GetMapping("/view")
+    @GetMapping("/list")
     public ResponseEntity<List<Account>> view() {
         final var result = service.listAll();
         return ResponseEntity.ok().body(result);
     }
 
-    @GetMapping("/account")
+    @GetMapping("/get")
     public ResponseEntity<Account> getAccount(@Validated @RequestBody AccountRequest accountRequest) {
         final var account = service.getAccount(accountRequest.getId());
         return ResponseEntity.ok().body(account);

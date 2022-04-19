@@ -31,14 +31,6 @@ public class TransactionDao {
         }
     }
 
-    public void save(final Transaction transaction) {
-        try (final var session = sqlSessionFactory.openSession()) {
-            final var mapper = session.getMapper(TransactionMapper.class);
-            mapper.save(transaction);
-            session.commit();
-        }
-    }
-
     public void create(final Transaction transaction) {
         try (final var session = sqlSessionFactory.openSession()) {
             final var mapper = session.getMapper(TransactionMapper.class);
@@ -46,4 +38,12 @@ public class TransactionDao {
             session.commit();
         }
     }
+
+//    public void save(final Transaction transaction) {
+//        try (final var session = sqlSessionFactory.openSession()) {
+//            final var mapper = session.getMapper(TransactionMapper.class);
+//            mapper.save(transaction);
+//            session.commit();
+//        }
+//    }
 }
