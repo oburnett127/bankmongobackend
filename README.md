@@ -4,6 +4,7 @@ Who knows why I named it bankmongo since id doesn't use Mongo?
 Instructions for Postman:
 -----------------------------------------------
 account-service: http://localhost:9002/account/
+-----------------------------------------------
 
 http://localhost:9002/account/list - GET - Lists all accounts
 
@@ -45,8 +46,10 @@ http://localhost:9002/account/transfer - POST - Perform transfer from one accoun
     "idReceiver":2,
     "amount":4
 }
+
 -------------------------------------------------------
 transaction-service: http://localhost:9003/transaction/
+-------------------------------------------------------
 
 http://localhost:9003/transaction/list - GET - List all transactions in database
 
