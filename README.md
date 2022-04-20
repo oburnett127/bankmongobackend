@@ -1,5 +1,5 @@
 # bankmongo
-Who knows why I named it bankmongo since id doesn't use Mongo?
+Who knows why I named it bankmongo since the project doesn't use Mongo?
 -----------------------------------------------------------------
 Instructions for Postman:
 -----------------------------------------------
