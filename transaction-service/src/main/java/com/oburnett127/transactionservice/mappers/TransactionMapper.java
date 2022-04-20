@@ -21,7 +21,20 @@ public interface TransactionMapper {
             @Result(property = "receiver", column = "receiver", javaType = Integer.class, jdbcType = JdbcType.BIGINT)
     })
     @Select("SELECT id, account, date, description, trans_type, amount, sender, receiver from transaction WHERE id = #{transactionId}")
-    Transaction getTransaction(@Param("transactionId") final Integer transactionId);
+    Transaction getTransactionById(@Param("transactionId") final Integer transactionId);
+
+    @Results({
+            @Result(property = "id", column = "id", javaType = Integer.class),
+            @Result(property = "account", column = "account", javaType = Integer.class),
+            @Result(property = "date", column = "date", javaType = Date.class),
+            @Result(property = "description", column = "description", javaType = String.class),
+            @Result(property = "transType", column = "trans_type", javaType = Integer.class),
+            @Result(property = "amount", column = "amount", javaType = BigDecimal.class),
+            @Result(property = "sender", column = "sender", javaType = Integer.class, jdbcType = JdbcType.BIGINT),
+            @Result(property = "receiver", column = "receiver", javaType = Integer.class, jdbcType = JdbcType.BIGINT)
+    })
+    @Select("SELECT id, account, date, description, trans_type, amount, sender, receiver from transaction WHERE account = #{accountId}")
+    List<Transaction> getTransactionsByAccountId(@Param("accountId") final Integer accountId);
 
     @Results({
             @Result(property = "id", column = "id", javaType = Integer.class),

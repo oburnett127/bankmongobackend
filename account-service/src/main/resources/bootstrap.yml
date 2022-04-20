@@ -1,0 +1,5 @@
+#spring:
+#  cloud:
+#    config:
+#      enabled: false
+#      uri: http://localhost:9296

@@ -1,16 +1,18 @@
 package com.oburnett127.accountservice.services;
 
+import com.oburnett127.accountservice.VO.ResponseTemplateVO;
 import com.oburnett127.accountservice.models.Account;
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.UUID;
+
 
 public interface AccountOperations {
     List<Account> listAll();
+    Account getAccount(int id);
+    //ResponseTemplateVO getAccountWithHistory(int id);
     void createAccount(Account account);
-    Account getAccount(UUID id);
-    Account withdraw(UUID id, BigDecimal amount);
-    Account deposit(UUID id, BigDecimal amount);
-    Account depositCheck(UUID id, String fullName, String signature, BigDecimal amount);
-    public Account transfer(UUID idSender, UUID idReceiver, BigDecimal amount);
+    Account withdraw(int id, BigDecimal amount);
+    Account deposit(int id, BigDecimal amount);
+    Account depositCheck(int id, String fullName, String signature, BigDecimal amount);
+    public Account transfer(int idSender, int idReceiver, BigDecimal amount);
 }

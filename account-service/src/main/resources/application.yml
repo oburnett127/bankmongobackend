@@ -1,0 +1,19 @@
+server:
+  port: 9002
+  error:
+    include-stacktrace: never
+
+spring:
+  application:
+    name: account-service
+  profiles.active: local
+  sql:
+    init:
+      platform: postgres
+  datasource:
+    url: jdbc:postgresql://localhost:5432/bankapp
+    username: postgres
+    password: postgres
+#  cloud:
+#    config:
+#      enabled: false

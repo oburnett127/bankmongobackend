@@ -15,18 +15,26 @@ public class TransactionDao {
         this.sqlSessionFactory = sqlSessionFactory;
     }
 
-    public Transaction getTransaction(final int id) {
-        try (final var session = sqlSessionFactory.openSession()) {
-            final var mapper = session.getMapper(TransactionMapper.class);
-            final var transaction = mapper.getTransaction(id);
-            return transaction;
-        }
-    }
-
     public List<Transaction> getAll() {
         try (final var session = sqlSessionFactory.openSession()) {
             final var mapper = session.getMapper(TransactionMapper.class);
             final var transactions = mapper.getAll();
+            return transactions;
+        }
+    }
+
+    public Transaction getTransactionById(final int id) {
+        try (final var session = sqlSessionFactory.openSession()) {
+            final var mapper = session.getMapper(TransactionMapper.class);
+            final var transaction = mapper.getTransactionById(id);
+            return transaction;
+        }
+    }
+
+    public List<Transaction> getTransactionsByAccountId(final int id) {
+        try (final var session = sqlSessionFactory.openSession()) {
+            final var mapper = session.getMapper(TransactionMapper.class);
+            final var transactions = mapper.getTransactionsByAccountId(id);
             return transactions;
         }
     }

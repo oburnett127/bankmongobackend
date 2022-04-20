@@ -1,5 +1,6 @@
 package com.oburnett127.accountservice.controllers;
 
+import com.oburnett127.accountservice.VO.ResponseTemplateVO;
 import com.oburnett127.accountservice.constants.DebugMessage;
 import com.oburnett127.accountservice.models.Account;
 import com.oburnett127.accountservice.models.AccountRequest;
@@ -41,19 +42,22 @@ public class AccountController {
         return ResponseEntity.ok().body(account);
     }
 
+//    @GetMapping("/gethistory")
+//    public ResponseEntity<ResponseTemplateVO> getAccountWithHistory(@Validated @RequestBody AccountRequest accountRequest) {
+//        final var result = service.getAccountWithHistory(accountRequest.getId());
+//        return ResponseEntity.ok().body(result);
+//    }
 
     @PostMapping("/create")
     public ResponseEntity<Account> createAccount(@Validated @RequestBody CreateAccountRequest createAccountRequest) throws IOException {
-        System.out.println(createAccountRequest.getFullName());
-        System.out.println(createAccountRequest.getBalance());
+//        System.out.println(createAccountRequest.getFullName());
+//        System.out.println(createAccountRequest.getBalance());
         final var account = Account.builder()
                 .fullName(createAccountRequest.getFullName())
                 .balance(createAccountRequest.getBalance())
                 .build();
         service.createAccount(account);
         log.debug(DebugMessage.MSG5,account.getFullName(),account.getId());
-
-
         return ResponseEntity.ok(account);
     }
 

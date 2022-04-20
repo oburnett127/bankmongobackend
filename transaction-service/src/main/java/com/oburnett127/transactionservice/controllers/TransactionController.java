@@ -29,9 +29,15 @@ public class TransactionController {
         return ResponseEntity.ok().body(result);
     }
 
-    @GetMapping("/get")
-    public ResponseEntity<Transaction> getTransaction(@Validated @RequestBody TransactionRequest transactionRequest) {
-        final var result = service.getTransaction(transactionRequest.getId());
+    @GetMapping("/gettran")
+    public ResponseEntity<Transaction> getTransactionById(@Validated @RequestBody TransactionRequest transactionRequest) {
+        final var result = service.getTransactionById(transactionRequest.getId());
+        return ResponseEntity.ok().body(result);
+    }
+
+    @GetMapping("/gettransbyaccount")
+    public ResponseEntity<List<Transaction>> getTransactionsByAccountId(@Validated @RequestBody TransactionRequest transactionRequest) {
+        final var result = service.getTransactionsByAccountId(transactionRequest.getId());
         return ResponseEntity.ok().body(result);
     }
 

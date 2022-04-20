@@ -1,4 +1,4 @@
-package com.oburnett127.accountservice.models;
+package com.oburnett127.accountservice.VO;
 
 import com.oburnett127.accountservice.constants.TransactionType;
 import com.oburnett127.accountservice.constants.TransactionType;
@@ -7,7 +7,7 @@ import lombok.Data;
 
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.UUID;
+
 
 @Data
 @Builder
@@ -18,6 +18,6 @@ public class Transaction {
     private TransactionType transType;
     private BigDecimal amount;
     private BigDecimal balanceRemaining;
-    private UUID sender;
-    private UUID receiver;
+    private int sender;
+    private int receiver;
 }

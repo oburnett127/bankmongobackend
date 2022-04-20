@@ -6,7 +6,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.UUID;
+
 
 @Repository
 public class AccountDao {
@@ -16,7 +16,7 @@ public class AccountDao {
         this.sqlSessionFactory = sqlSessionFactory;
     }
 
-    public Account getAccount(final UUID id) {
+    public Account getAccount(final int id) {
         try (final var session = sqlSessionFactory.openSession()) {
             final var mapper = session.getMapper(AccountMapper.class);
             final var account = mapper.getAccount(id);

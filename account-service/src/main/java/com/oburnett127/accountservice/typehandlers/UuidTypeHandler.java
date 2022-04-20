@@ -9,11 +9,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.UUID;
 
+
 @MappedTypes(UUID.class)
 public class UuidTypeHandler extends BaseTypeHandler<UUID> {
     @Override
-    public void setNonNullParameter(PreparedStatement ps, int i, UUID parameter, JdbcType jdbcType) throws SQLException {
-        ps.setObject(i, parameter);
+    public void setNonNullParameter(PreparedStatement preparedStatement, int i, UUID uuid, JdbcType jdbcType) throws SQLException {
+        preparedStatement.setObject(i, uuid);
     }
 
     @Override

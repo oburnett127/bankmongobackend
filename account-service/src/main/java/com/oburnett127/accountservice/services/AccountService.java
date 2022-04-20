@@ -1,15 +1,18 @@
 package com.oburnett127.accountservice.services;
 
+import com.oburnett127.accountservice.VO.ResponseTemplateVO;
+import com.oburnett127.accountservice.VO.Transaction;
 import com.oburnett127.accountservice.daos.AccountDao;
 import com.oburnett127.accountservice.models.Account;
 import com.oburnett127.accountservice.utils.AccountValidator;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.UUID;
+
 
 @Service
 @Slf4j
@@ -17,6 +20,14 @@ public class AccountService implements AccountOperations {
 
     private final AccountDao accountDao;
     private final AccountValidator accountValidator;
+    //private RestTemplate restTemplate;
+
+//    public AccountService(final AccountDao accountDao, final AccountValidator accountValidator,
+//                          final RestTemplate restTemplate) {
+//        this.accountDao = accountDao;
+//        this.accountValidator = accountValidator;
+//        this.restTemplate = restTemplate;
+//    }
 
     public AccountService(final AccountDao accountDao, final AccountValidator accountValidator) {
         this.accountDao = accountDao;
@@ -29,77 +40,72 @@ public class AccountService implements AccountOperations {
     }
 
     @Override
+    @SneakyThrows
+    public Account getAccount(final int id) {
+        final var account = accountDao.getAccount(id);
+        return account;
+    }
+
+//    @Override
+//    @SneakyThrows
+//    public ResponseTemplateVO getAccountWithHistory(final int id) {
+//        ResponseTemplateVO vo = new ResponseTemplateVO();
+//        final var account = accountDao.getAccount(id);
+//        List<Transaction> transHistory =
+//                restTemplate.getForObject("http://transaction-service/gettransbyaccount/" + id,
+//                        List.class);
+//        vo.setAccount(account);
+//        vo.setTransHistory(transHistory);
+//        return vo;
+//    }
+
+    @Override
     public void createAccount(Account account) {
         this.accountDao.create(account);
     }
 
     @Override
     @SneakyThrows
-    public Account getAccount(final UUID id) {
+    public Account withdraw(int id, BigDecimal amount) {
         final var account = accountDao.getAccount(id);
-
-        return account;
-    }
-
-    @Override
-    @SneakyThrows
-    public Account withdraw(UUID id, BigDecimal amount) {
-        final var account = accountDao.getAccount(id);
-
         accountValidator.withdraw(account, amount);
-
         account.setBalance(account.getBalance().subtract(amount));
-
         accountDao.save(account);
-
         return account;
     }
 
     @Override
     @SneakyThrows
-    public Account deposit(UUID id, BigDecimal amount) {
+    public Account deposit(int id, BigDecimal amount) {
         final var account = accountDao.getAccount(id);
-
         accountValidator.deposit(id, amount);
-
         log.debug("account.getId() {}", account.getId());
         log.debug("account balance: {} amount: {}", account.getBalance(), amount);
-
         account.setBalance(account.getBalance().add(amount));
-
         accountDao.save(account);
-
         return account;
     }
 
     @Override
     @SneakyThrows
-    public Account depositCheck(UUID id, String fullName, String signature, BigDecimal amount) {
+    public Account depositCheck(int id, String fullName, String signature, BigDecimal amount) {
         final var account = accountDao.getAccount(id);
-
         accountValidator.depositCheck(id, fullName, signature, amount);
-      
         account.setBalance(account.getBalance().add(amount));
-
         accountDao.save(account);
-
         return account;
     }
 
     @Override
     @SneakyThrows
-    public Account transfer(UUID idSender, UUID idReceiver, BigDecimal amount) {
+    public Account transfer(int idSender, int idReceiver, BigDecimal amount) {
         final var senderAccount = accountDao.getAccount(idSender);
         final var receiverAccount = accountDao.getAccount(idReceiver);
-
         accountValidator.transfer(senderAccount, receiverAccount, amount);
-
         senderAccount.setBalance(senderAccount.getBalance().subtract(amount));
         receiverAccount.setBalance(receiverAccount.getBalance().add(amount));
-
         accountDao.save(senderAccount);
         accountDao.save(receiverAccount);
-
         return senderAccount;
     }
 }

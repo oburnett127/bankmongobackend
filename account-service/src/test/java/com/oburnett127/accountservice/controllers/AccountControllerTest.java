@@ -25,7 +25,7 @@
 //import java.io.IOException;
 //import java.math.BigDecimal;
 //import java.util.List;
-//import java.util.UUID;
+//
 //import java.util.stream.Stream;
 //
 //@ExtendWith(MockitoExtension.class)
@@ -131,7 +131,7 @@
 //    @MethodSource("getAccountParams")
 //    public void testTransfer(Account account) {
 //        final var transferRequest = new TransferRequest();
-//        final var receiverId = UUID.randomUUID();
+//        final var receiverId = int.randomint();
 //        final var amount = new BigDecimal("140.00");
 //        transferRequest.setIdSender(account.getId());
 //        transferRequest.setIdReceiver(receiverId);

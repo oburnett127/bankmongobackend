@@ -41,7 +41,7 @@ SET default_table_access_method = heap;
 --
 
 CREATE TABLE public.account (
-                                id uuid DEFAULT gen_random_uuid() NOT NULL,
+                                id serial,
                                 full_name character varying(100) NOT NULL,
                                 balance double precision DEFAULT 0.00 NOT NULL,
                                 created_at timestamp with time zone DEFAULT timezone('utc'::text, now()),
@@ -75,9 +75,9 @@ CREATE TRIGGER update_customer_modtime BEFORE UPDATE ON public.account FOR EACH 
 --
 -- PostgreSQL database dump complete
 --
-INSERT INTO public.account (id, full_name, balance, created_at, updated_at) VALUES (DEFAULT, 'dev', 1000, DEFAULT, DEFAULT);
-INSERT INTO public.account (id, full_name, balance, created_at, updated_at) VALUES (DEFAULT, 'owen', 11111, DEFAULT, DEFAULT);
-INSERT INTO public.account (id, full_name, balance, created_at, updated_at) VALUES (DEFAULT, 'jordan', 111111, DEFAULT, DEFAULT);
-INSERT INTO public.account (id, full_name, balance, created_at, updated_at) VALUES (DEFAULT, 'maxwell', 1, DEFAULT, DEFAULT);
-INSERT INTO public.account (id, full_name, balance, created_at, updated_at) VALUES (DEFAULT, 'ana', 1232322, DEFAULT, DEFAULT);
+INSERT INTO public.account (id, full_name, balance, created_at, updated_at) VALUES (1, 'dev', 1000, DEFAULT, DEFAULT);
+INSERT INTO public.account (id, full_name, balance, created_at, updated_at) VALUES (2, 'owen', 11111, DEFAULT, DEFAULT);
+INSERT INTO public.account (id, full_name, balance, created_at, updated_at) VALUES (3, 'jordan', 111111, DEFAULT, DEFAULT);
+INSERT INTO public.account (id, full_name, balance, created_at, updated_at) VALUES (4, 'maxwell', 1, DEFAULT, DEFAULT);
+INSERT INTO public.account (id, full_name, balance, created_at, updated_at) VALUES (5, 'ana', 1232322, DEFAULT, DEFAULT);
 

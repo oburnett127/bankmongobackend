@@ -2,9 +2,9 @@
 //
 //import lombok.Data;
 //
-//import java.util.UUID;
+//
 //
 //@Data
 //public class TransactionRequest {
-//    private UUID id;
+//    private int id;
 //}

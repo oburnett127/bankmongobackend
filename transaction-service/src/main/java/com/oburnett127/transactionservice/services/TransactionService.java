@@ -29,10 +29,16 @@ public class TransactionService implements TransactionOperations {
 
     @Override
     @SneakyThrows
-    public Transaction getTransaction(final int id) {
-        final var transaction = transactionDao.getTransaction(id);
-
+    public Transaction getTransactionById(final int id) {
+        final var transaction = transactionDao.getTransactionById(id);
         return transaction;
+    }
+
+    @Override
+    @SneakyThrows
+    public List<Transaction> getTransactionsByAccountId(final int id) {
+        final var transactions = transactionDao.getTransactionsByAccountId(id);
+        return transactions;
     }
 
     @Override

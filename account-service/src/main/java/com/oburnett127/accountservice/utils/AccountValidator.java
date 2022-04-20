@@ -17,7 +17,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
-import java.util.UUID;
+
 import java.util.function.Predicate;
 
 @Component
@@ -36,12 +36,12 @@ public class AccountValidator {
     }
 
     @SneakyThrows
-    public void deposit(UUID id, BigDecimal amount) {
+    public void deposit(int id, BigDecimal amount) {
         validateTransactionAmount(amount, TransactionType.DEPOSIT);
     }
 
     @SneakyThrows
-    public void depositCheck(UUID id, String fullName, String signature, BigDecimal amount) {
+    public void depositCheck(int id, String fullName, String signature, BigDecimal amount) {
         validateTransactionAmount(amount, TransactionType.DEPOSIT);
 
         if (StringUtils.isBlank(fullName)) {
@@ -71,7 +71,7 @@ public class AccountValidator {
 
     @SneakyThrows
     public void transfer(Account senderAccount, Account receiverAccount, BigDecimal amount) {
-        if (senderAccount.getId().compareTo(receiverAccount.getId()) == 0) {
+        if (senderAccount.getId() == receiverAccount.getId()) {
             throw new InvalidOperationException();
         }
 
