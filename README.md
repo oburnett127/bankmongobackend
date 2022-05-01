@@ -1,5 +1,5 @@
 # bankmongo
-Who knows why I named it bankmongo since the project doesn't use Mongo?
+Switching to using MongoDB soon
 -----------------------------------------------------------------
 Instructions for Postman:
 -----------------------------------------------
