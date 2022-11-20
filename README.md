@@ -1,5 +1,4 @@
 # bankmongo
-Switching to using MongoDB soon
 -----------------------------------------------------------------
 Instructions for Postman:
 -----------------------------------------------
