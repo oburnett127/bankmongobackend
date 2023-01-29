@@ -1,2 +1,2 @@
 # account-service
-Test Driven Development, Java, Spring Boot, React, MongoDB, Hibernate
+Test Driven Development, Java, Spring Boot, Hibernate
