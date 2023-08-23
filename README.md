@@ -1,4 +1,5 @@
 # bankmongo
+This app uses Spring Cloud and microservices. This app uses MyBatis (not Hibernate). Check out one of my other projects to see a project that uses Hibernate.
 -----------------------------------------------------------------
 Instructions for Postman:
 -----------------------------------------------

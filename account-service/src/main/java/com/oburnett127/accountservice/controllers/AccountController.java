@@ -42,11 +42,11 @@ public class AccountController {
         return ResponseEntity.ok().body(account);
     }
 
-//    @GetMapping("/gethistory")
-//    public ResponseEntity<ResponseTemplateVO> getAccountWithHistory(@Validated @RequestBody AccountRequest accountRequest) {
-//        final var result = service.getAccountWithHistory(accountRequest.getId());
-//        return ResponseEntity.ok().body(result);
-//    }
+   @GetMapping("/gethistory")
+   public ResponseEntity<ResponseTemplateVO> getAccountWithHistory(@Validated @RequestBody AccountRequest accountRequest) {
+       final ResponseTemplateVO result = service.getAccountWithHistory(accountRequest.getId());
+       return ResponseEntity.ok().body(result);
+   }
 
     @PostMapping("/create")
     public ResponseEntity<Account> createAccount(@Validated @RequestBody CreateAccountRequest createAccountRequest) throws IOException {

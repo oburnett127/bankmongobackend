@@ -9,7 +9,7 @@ import java.util.List;
 public interface AccountOperations {
     List<Account> listAll();
     Account getAccount(int id);
-    //ResponseTemplateVO getAccountWithHistory(int id);
+    ResponseTemplateVO getAccountWithHistory(int id);
     void createAccount(Account account);
     Account withdraw(int id, BigDecimal amount);
     Account deposit(int id, BigDecimal amount);
