@@ -7,8 +7,13 @@ import com.oburnett127.accountservice.models.Account;
 import com.oburnett127.accountservice.utils.AccountValidator;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -20,14 +25,14 @@ public class AccountService implements AccountOperations {
 
     private final AccountDao accountDao;
     private final AccountValidator accountValidator;
-    //private RestTemplate restTemplate;
+    private RestTemplate restTemplate;
 
-//    public AccountService(final AccountDao accountDao, final AccountValidator accountValidator,
-//                          final RestTemplate restTemplate) {
-//        this.accountDao = accountDao;
-//        this.accountValidator = accountValidator;
-//        this.restTemplate = restTemplate;
-//    }
+   public AccountService(final AccountDao accountDao, final AccountValidator accountValidator,
+                         final RestTemplate restTemplate) {
+       this.accountDao = accountDao;
+       this.accountValidator = accountValidator;
+       this.restTemplate = restTemplate;
+   }
 
     public AccountService(final AccountDao accountDao, final AccountValidator accountValidator) {
         this.accountDao = accountDao;
@@ -46,18 +51,28 @@ public class AccountService implements AccountOperations {
         return account;
     }
 
-//    @Override
-//    @SneakyThrows
-//    public ResponseTemplateVO getAccountWithHistory(final int id) {
-//        ResponseTemplateVO vo = new ResponseTemplateVO();
-//        final var account = accountDao.getAccount(id);
-//        List<Transaction> transHistory =
-//                restTemplate.getForObject("http://transaction-service/gettransbyaccount/" + id,
-//                        List.class);
-//        vo.setAccount(account);
-//        vo.setTransHistory(transHistory);
-//        return vo;
-//    }
+   @Override
+   @SneakyThrows
+   public ResponseTemplateVO getAccountWithHistory(final int id) {
+       ResponseTemplateVO vo = new ResponseTemplateVO();
+       final var account = accountDao.getAccount(id);
+       String url = UriComponentsBuilder.fromHttpUrl("http://transaction-service/gettransbyaccount/{id}")
+        .buildAndExpand(id)
+        .toUriString();
+
+        ResponseEntity<List<Transaction>> response = restTemplate.exchange(
+            url,
+            HttpMethod.GET,
+            null,
+            new ParameterizedTypeReference<List<Transaction>>() {}
+        );
+
+        List<Transaction> transHistory = response.getBody();
+
+       vo.setAccount(account);
+       vo.setTransHistory(transHistory);
+       return vo;
+   }
 
     @Override
     public void createAccount(Account account) {

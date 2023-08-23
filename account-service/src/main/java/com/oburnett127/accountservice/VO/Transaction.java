@@ -1,7 +1,6 @@
 package com.oburnett127.accountservice.VO;
 
 import com.oburnett127.accountservice.constants.TransactionType;
-import com.oburnett127.accountservice.constants.TransactionType;
 import lombok.Builder;
 import lombok.Data;
 
