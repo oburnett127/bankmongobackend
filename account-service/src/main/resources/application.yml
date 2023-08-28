@@ -12,18 +12,18 @@ spring:
   application:
     name: account-service
   profiles.active: local
-  sql:
-    init:
-      platform: MySQL5Dialect
+# sql:
+#   init:
+#      platform: 
   datasource:
-    url: jdbc:postgresql://localhost:5432/bankapp
+    url: jdbc:mysql://localhost:3306/bankapp?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false
     username: root
     password: root
   jpa:
     properties:
       hibernate:
         format_sql: true
-        dialect: org.hibernate.dialect.MySQL5Dialect
+        dialect: org.hibernate.dialect.MySQLDialect
         ddl-auto: create-drop
   jackson:
     serialization:

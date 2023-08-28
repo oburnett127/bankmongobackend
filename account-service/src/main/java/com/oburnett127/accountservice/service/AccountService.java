@@ -7,6 +7,7 @@ import com.oburnett127.accountservice.repository.AccountRepository;
 import com.oburnett127.accountservice.util.AccountValidator;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -24,12 +25,13 @@ public class AccountService implements AccountOperations {
     private final AccountValidator accountValidator;
     private RestTemplate restTemplate;
 
-   public AccountService(final AccountRepository accountRepository, final AccountValidator accountValidator,
-                         final RestTemplate restTemplate) {
-       this.accountRepository = accountRepository;
-       this.accountValidator = accountValidator;
-       this.restTemplate = restTemplate;
-   }
+    @Autowired
+    public AccountService(final AccountRepository accountRepository, final AccountValidator accountValidator,
+                            final RestTemplate restTemplate) {
+        this.accountRepository = accountRepository;
+        this.accountValidator = accountValidator;
+        this.restTemplate = restTemplate;
+    }
 
     public AccountService(final AccountRepository accountRepository, final AccountValidator accountValidator) {
         this.accountRepository = accountRepository;
