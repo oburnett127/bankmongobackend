@@ -1,14 +1,16 @@
 package com.oburnett127.accountservice.controllers;
 
 import com.flextrade.jfixture.JFixture;
-import com.oburnett127.accountservice.models.Account;
-import com.oburnett127.accountservice.models.AccountRequest;
-import com.oburnett127.accountservice.models.CreateAccountRequest;
-import com.oburnett127.accountservice.models.DepositCheckRequest;
-import com.oburnett127.accountservice.models.DepositRequest;
-import com.oburnett127.accountservice.models.TransferRequest;
-import com.oburnett127.accountservice.models.WithdrawRequest;
-import com.oburnett127.accountservice.services.AccountService;
+import com.oburnett127.accountservice.controller.AccountController;
+import com.oburnett127.accountservice.model.Account;
+import com.oburnett127.accountservice.model.AccountRequest;
+import com.oburnett127.accountservice.model.CreateAccountRequest;
+import com.oburnett127.accountservice.model.DepositCheckRequest;
+import com.oburnett127.accountservice.model.DepositRequest;
+import com.oburnett127.accountservice.model.TransferRequest;
+import com.oburnett127.accountservice.model.WithdrawRequest;
+import com.oburnett127.accountservice.service.AccountService;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

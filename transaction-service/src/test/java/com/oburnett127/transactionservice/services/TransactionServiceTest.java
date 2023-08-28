@@ -2,7 +2,7 @@
 //
 //
 //import com.flextrade.jfixture.JFixture;
-//import com.oburnett127.transactionservice.daos.TransactionDao;
+//import com.oburnett127.transactionservice.daos.TransactionRepository;
 //import com.oburnett127.transactionservice.utils.TransactionValidator;
 //import org.junit.jupiter.api.Test;
 //import org.junit.jupiter.api.extension.ExtendWith;
@@ -28,8 +28,8 @@
 //    @InjectMocks
 //    private TransactionService transactionService;
 //
-//    @Mock(name = "TransactionDao")
-//    private TransactionDao TransactionDao;
+//    @Mock(name = "TransactionRepository")
+//    private TransactionRepository TransactionRepository;
 //
 //    @Mock(name = "TransactionValidator")
 //    private TransactionValidator TransactionValidator;
@@ -117,60 +117,60 @@
 //    @Test
 //    public void testListAll() {
 //        final var actual = transactionService.listAll();
-//        Mockito.verify(TransactionDao).getAll();
+//        Mockito.verify(TransactionRepository).getAll();
 //    }
 //
 //    @ParameterizedTest
 //    @MethodSource("getTransactionParams")
 //    public void testCreateTransaction(Transaction Transaction) {
 //        transactionService.createTransaction(Transaction);
-//        Mockito.verify(TransactionDao).create(Transaction);
+//        Mockito.verify(TransactionRepository).create(Transaction);
 //    }
 //
 //    @ParameterizedTest
 //    @MethodSource("getTransactionIdParam")
 //    public void testGetTransaction(final int id) {
-//        Mockito.when(TransactionDao.getTransaction(id)).thenReturn(Mockito.mock(Transaction.class));
+//        Mockito.when(TransactionRepository.getTransaction(id)).thenReturn(Mockito.mock(Transaction.class));
 //        transactionService.getTransaction(id);
-//        Mockito.verify(TransactionDao).getTransaction(id);
+//        Mockito.verify(TransactionRepository).getTransaction(id);
 //    }
 //
 //    @ParameterizedTest
 //    @MethodSource("withdrawParams")
 //    public void testWithdraw(final int id, final BigDecimal amount, final Transaction Transaction) {
-//        Mockito.when(TransactionDao.getTransaction(id)).thenReturn(Transaction);
+//        Mockito.when(TransactionRepository.getTransaction(id)).thenReturn(Transaction);
 //
 //        final var actual = transactionservice.withdraw(id, amount);
 //
 //        Mockito.verify(TransactionValidator, Mockito.times(1)).withdraw(Transaction, amount);
 //
-//        Mockito.verify(TransactionDao).save(actual);
+//        Mockito.verify(TransactionRepository).save(actual);
 //    }
 //
 //    @ParameterizedTest
 //    @MethodSource("depositParams")
 //    public void testDeposit(final int id, final BigDecimal amount, Transaction Transaction) {
-//        Mockito.when(TransactionDao.getTransaction(id)).thenReturn(Transaction);
+//        Mockito.when(TransactionRepository.getTransaction(id)).thenReturn(Transaction);
 //
 //        final var actual = transactionservice.deposit(id, amount);
 //
 //        Mockito.verify(TransactionValidator, Mockito.times(1)).deposit(id, amount);
 //
-//        Mockito.verify(TransactionDao).save(actual);
+//        Mockito.verify(TransactionRepository).save(actual);
 //    }
 //
 //    @ParameterizedTest
 //    @MethodSource("depositCheckParams")
 //    public void testDepositCheck(final int id,  final BigDecimal amount, Transaction Transaction,
 //                                 final String fullName, final String signature) {
-//        Mockito.when(TransactionDao.getTransaction(id)).thenReturn(Transaction);
+//        Mockito.when(TransactionRepository.getTransaction(id)).thenReturn(Transaction);
 //
 //        final var actual = transactionservice.depositCheck(id, fullName, signature, amount);
 //
 //        Mockito.verify(TransactionValidator, Mockito.times(1)).depositCheck(id, fullName,
 //                signature, amount);
 //
-//        Mockito.verify(TransactionDao, Mockito.times(1)).save(actual);
+//        Mockito.verify(TransactionRepository, Mockito.times(1)).save(actual);
 //    }
 //
 //    @ParameterizedTest
@@ -179,13 +179,13 @@
 //                             Transaction receiverTransaction) {
 //        final Predicate<BigDecimal> isZero = (a) -> a == null || BigDecimal.ZERO.compareTo(a) >= 0;
 //
-//        Mockito.when(TransactionDao.getTransaction(idSender)).thenReturn(senderTransaction);
-//        Mockito.when(TransactionDao.getTransaction(idReceiver)).thenReturn(receiverTransaction);
+//        Mockito.when(TransactionRepository.getTransaction(idSender)).thenReturn(senderTransaction);
+//        Mockito.when(TransactionRepository.getTransaction(idReceiver)).thenReturn(receiverTransaction);
 //
 //        final var actualSender = transactionservice.transfer(idSender, idReceiver, amount);
 //
 //        Mockito.verify(TransactionValidator, Mockito.times(1)).transfer(senderTransaction, receiverTransaction, amount);
 //
-//        Mockito.verify(TransactionDao).save(actualSender);
+//        Mockito.verify(TransactionRepository).save(actualSender);
 //    }
 //}
