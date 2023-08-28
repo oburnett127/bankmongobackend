@@ -26,10 +26,10 @@
 //
 //@ExtendWith(MockitoExtension.class)
 //@MockitoSettings(strictness = Strictness.LENIENT)
-//public class TransactionDaoTest {
+//public class TransactionRepositoryTest {
 //
 //    @InjectMocks
-//    private TransactionDao TransactionDao;
+//    private TransactionRepository TransactionRepository;
 //
 //    @Mock(name = "sqlSessionFactory")
 //    private SqlSessionFactory sqlSessionFactory;
@@ -81,7 +81,7 @@
 //
 //        Mockito.when(mapper.getTransaction(id)).thenReturn(expected);
 //
-//        final var actual = TransactionDao.getTransaction(id);
+//        final var actual = TransactionRepository.getTransaction(id);
 //        Assertions.assertEquals(expected, actual);
 //
 //        Mockito.verify(mapper).getTransaction(id);
@@ -103,7 +103,7 @@
 //        final var mapper = mockMapperSession();
 //        Mockito.when(mapper.getAll()).thenReturn(expected);
 //
-//        final var actual = TransactionDao.getAll();
+//        final var actual = TransactionRepository.getAll();
 //        Assertions.assertEquals(expected, actual);
 //
 //        Mockito.verify(mapper).getAll();
@@ -118,7 +118,7 @@
 //        final var mapper = Mockito.mock(TransactionMapper.class);
 //        Mockito.when(session.getMapper(TransactionMapper.class)).thenReturn(mapper);
 //
-//        TransactionDao.save(Transaction);
+//        TransactionRepository.save(Transaction);
 //
 //        Mockito.verify(mapper).save(Transaction);
 //        Mockito.verify(session).commit();
@@ -134,7 +134,7 @@
 //        final var mapper = Mockito.mock(TransactionMapper.class);
 //        Mockito.when(session.getMapper(TransactionMapper.class)).thenReturn(mapper);
 //
-//        TransactionDao.create(Transaction);
+//        TransactionRepository.create(Transaction);
 //
 //        Mockito.verify(mapper).create(Transaction);
 //        Mockito.verify(session).commit();

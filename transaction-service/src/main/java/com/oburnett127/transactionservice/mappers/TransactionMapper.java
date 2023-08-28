@@ -1,8 +1,9 @@
 package com.oburnett127.transactionservice.mappers;
 
-import com.oburnett127.transactionservice.models.Transaction;
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.type.JdbcType;
+
+import com.oburnett127.transactionservice.model.Transaction;
 
 import java.math.BigDecimal;
 import java.util.Date;

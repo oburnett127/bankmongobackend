@@ -1,7 +1,12 @@
 server:
   port: 9002
-  error:
-    include-stacktrace: never
+# error:
+#   include-stacktrace: never
+  servlet:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
 
 spring:
   application:
@@ -9,11 +14,36 @@ spring:
   profiles.active: local
   sql:
     init:
-      platform: postgres
+      platform: MySQL5Dialect
   datasource:
     url: jdbc:postgresql://localhost:5432/bankapp
-    username: postgres
-    password: postgres
+    username: root
+    password: root
+  jpa:
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQL5Dialect
+        ddl-auto: create-drop
+  jackson:
+    serialization:
+      FAIL_ON_EMPTY_BEANS: false
+    default-property-inclusion: NON_NULL
+  mvc:
+    converters:
+      preferred-json-mapper: jackson
+
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: error
+        type: error
+      springframework:
+        web: error
+        security: DEBUG
+    root: error
+
 #  cloud:
 #    config:
 #      enabled: false

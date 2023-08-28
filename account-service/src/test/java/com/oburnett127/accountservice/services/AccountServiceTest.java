@@ -2,7 +2,7 @@
 //
 //
 //import com.flextrade.jfixture.JFixture;
-//import com.oburnett127.accountservice.daos.AccountDao;
+//import com.oburnett127.accountservice.daos.AccountRepository;
 //import com.oburnett127.accountservice.models.Account;
 //import com.oburnett127.accountservice.utils.AccountValidator;
 //import org.junit.jupiter.api.Test;
@@ -29,8 +29,8 @@
 //    @InjectMocks
 //    private AccountService accountService;
 //
-//    @Mock(name = "accountDao")
-//    private AccountDao accountDao;
+//    @Mock(name = "accountRepository")
+//    private AccountRepository accountRepository;
 //
 //    @Mock(name = "accountValidator")
 //    private AccountValidator accountValidator;
@@ -118,60 +118,60 @@
 //    @Test
 //    public void testListAll() {
 //        final var actual = accountService.listAll();
-//        Mockito.verify(accountDao).getAll();
+//        Mockito.verify(accountRepository).getAll();
 //    }
 //
 //    @ParameterizedTest
 //    @MethodSource("getAccountParams")
 //    public void testCreateAccount(Account account) {
 //        accountService.createAccount(account);
-//        Mockito.verify(accountDao).create(account);
+//        Mockito.verify(accountRepository).create(account);
 //    }
 //
 //    @ParameterizedTest
 //    @MethodSource("getAccountIdParam")
 //    public void testGetAccount(final int id) {
-//        Mockito.when(accountDao.getAccount(id)).thenReturn(Mockito.mock(Account.class));
+//        Mockito.when(accountRepository.getAccount(id)).thenReturn(Mockito.mock(Account.class));
 //        accountService.getAccount(id);
-//        Mockito.verify(accountDao).getAccount(id);
+//        Mockito.verify(accountRepository).getAccount(id);
 //    }
 //
 //    @ParameterizedTest
 //    @MethodSource("withdrawParams")
 //    public void testWithdraw(final int id, final BigDecimal amount, final Account account) {
-//        Mockito.when(accountDao.getAccount(id)).thenReturn(account);
+//        Mockito.when(accountRepository.getAccount(id)).thenReturn(account);
 //
 //        final var actual = accountService.withdraw(id, amount);
 //
 //        Mockito.verify(accountValidator, Mockito.times(1)).withdraw(account, amount);
 //
-//        Mockito.verify(accountDao).save(actual);
+//        Mockito.verify(accountRepository).save(actual);
 //    }
 //
 //    @ParameterizedTest
 //    @MethodSource("depositParams")
 //    public void testDeposit(final int id, final BigDecimal amount, Account account) {
-//        Mockito.when(accountDao.getAccount(id)).thenReturn(account);
+//        Mockito.when(accountRepository.getAccount(id)).thenReturn(account);
 //
 //        final var actual = accountService.deposit(id, amount);
 //
 //        Mockito.verify(accountValidator, Mockito.times(1)).deposit(id, amount);
 //
-//        Mockito.verify(accountDao).save(actual);
+//        Mockito.verify(accountRepository).save(actual);
 //    }
 //
 //    @ParameterizedTest
 //    @MethodSource("depositCheckParams")
 //    public void testDepositCheck(final int id,  final BigDecimal amount, Account account,
 //                                 final String fullName, final String signature) {
-//        Mockito.when(accountDao.getAccount(id)).thenReturn(account);
+//        Mockito.when(accountRepository.getAccount(id)).thenReturn(account);
 //
 //        final var actual = accountService.depositCheck(id, fullName, signature, amount);
 //
 //        Mockito.verify(accountValidator, Mockito.times(1)).depositCheck(id, fullName,
 //                signature, amount);
 //
-//        Mockito.verify(accountDao, Mockito.times(1)).save(actual);
+//        Mockito.verify(accountRepository, Mockito.times(1)).save(actual);
 //    }
 //
 //    @ParameterizedTest
@@ -180,13 +180,13 @@
 //                             Account receiverAccount) {
 //        final Predicate<BigDecimal> isZero = (a) -> a == null || BigDecimal.ZERO.compareTo(a) >= 0;
 //
-//        Mockito.when(accountDao.getAccount(idSender)).thenReturn(senderAccount);
-//        Mockito.when(accountDao.getAccount(idReceiver)).thenReturn(receiverAccount);
+//        Mockito.when(accountRepository.getAccount(idSender)).thenReturn(senderAccount);
+//        Mockito.when(accountRepository.getAccount(idReceiver)).thenReturn(receiverAccount);
 //
 //        final var actualSender = accountService.transfer(idSender, idReceiver, amount);
 //
 //        Mockito.verify(accountValidator, Mockito.times(1)).transfer(senderAccount, receiverAccount, amount);
 //
-//        Mockito.verify(accountDao).save(actualSender);
+//        Mockito.verify(accountRepository).save(actualSender);
 //    }
 //}
