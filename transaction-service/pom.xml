@@ -8,7 +8,7 @@
     <name>transaction-service</name>
     <description>transaction service for bankmongo application</description>
     <properties>
-        <java.version>19</java.version>
+        <java.version>20</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <maven.compiler.release>${java.version}</maven.compiler.release>
@@ -54,11 +54,6 @@
            <groupId>org.springframework.cloud</groupId>
            <artifactId>spring-cloud-starter-config</artifactId>
            <version>4.0.4</version>
-       </dependency>
-       <dependency>
-           <groupId>org.springframework.cloud</groupId>
-           <artifactId>spring-cloud-starter-sleuth</artifactId>
-           <version>3.1.9</version>
        </dependency>
        <dependency>
            <groupId>org.springframework.cloud</groupId>
@@ -246,6 +241,11 @@
             <version>3.1.0</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+            <version>4.0.4</version>
+        </dependency>
     </dependencies>
     <build>
         <pluginManagement>
@@ -290,6 +290,8 @@
                 <version>3.11.0</version>
                 <configuration>
                     <encoding>UTF-8</encoding>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
                 </configuration>
             </plugin>
             <plugin>

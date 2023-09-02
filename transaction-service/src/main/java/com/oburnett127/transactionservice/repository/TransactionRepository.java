@@ -7,6 +7,6 @@ import org.springframework.data.repository.query.Param;
 import com.oburnett127.transactionservice.model.Transaction;
 
 public interface TransactionRepository extends JpaRepository<Transaction, Integer> {
-    @Query("SELECT t FROM Transaction t WHERE t.accountId = :accountId")
+    @Query("SELECT t FROM Transaction t WHERE t.account = :accountId")
     List<Transaction> getTransactionsByAccountId(@Param("accountId") int accountId);
 }

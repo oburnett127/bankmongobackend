@@ -1,20 +1,17 @@
 package com.oburnett127.accountservice.service;
 
 import com.oburnett127.accountservice.VO.ResponseTemplateVO;
-import com.oburnett127.accountservice.VO.Transaction;
 import com.oburnett127.accountservice.model.Account;
 import com.oburnett127.accountservice.repository.AccountRepository;
 import com.oburnett127.accountservice.util.AccountValidator;
 import com.oburnett127.transactionservice.feign.TransactionServiceClient;
+import com.oburnett127.transactionservice.model.Transaction;
+import com.oburnett127.transactionservice.model.TransactionRequest;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
-import org.springframework.web.util.UriComponentsBuilder;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -33,11 +30,6 @@ public class AccountService implements AccountOperations {
         this.accountRepository = accountRepository;
         this.accountValidator = accountValidator;
         this.transactionServiceClient = transactionServiceClient;
-    }
-
-    public AccountService(final AccountRepository accountRepository, final AccountValidator accountValidator) {
-        this.accountRepository = accountRepository;
-        this.accountValidator = accountValidator;
     }
 
     @Override
@@ -100,6 +92,20 @@ public class AccountService implements AccountOperations {
         accountRepository.save(senderAccount);
         accountRepository.save(receiverAccount);
         return senderAccount;
+    }
+
+    @Override
+    public ResponseTemplateVO getAccountWithHistory(int id) {
+        final Account account = accountRepository.getReferenceById(id);
+        TransactionRequest req = TransactionRequest.builder()
+                                        .id(id)
+                                        .build();
+        ResponseEntity<List<Transaction>> transactions = transactionServiceClient.getTransactionsByAccountId(req);
+        ResponseTemplateVO vo = ResponseTemplateVO.builder()
+                                    .account(account)
+                                    .transHistory(transactions.getBody())
+                                    .build();
+        return vo;
     }
 
     //    @Override

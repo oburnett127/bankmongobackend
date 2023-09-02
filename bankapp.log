@@ -37,3 +37,35 @@ Caused by: java.lang.NumberFormatException: For input string: ""
 	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:139) ~[spring-beans-6.0.11.jar:6.0.11]
 	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:655) ~[spring-beans-6.0.11.jar:6.0.11]
 	... 22 more
+2023-09-02 13:22:59,604 ERROR o.s.b.d.LoggingFailureAnalysisReporter [restartedMain] 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+No spring.config.import property has been defined
+
+Action:
+
+Add a spring.config.import=configserver: property to your configuration.
+	If configuration is not required add spring.config.import=optional:configserver: instead.
+	To disable this check, set spring.cloud.config.enabled=false or 
+	spring.cloud.config.import-check.enabled=false.
+
+2023-09-02 16:45:42,649 ERROR o.s.b.d.LoggingFailureAnalysisReporter [restartedMain] 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Parameter 2 of constructor in com.oburnett127.accountservice.service.AccountService required a bean of type 'com.oburnett127.transactionservice.feign.TransactionServiceClient' that could not be found.
+
+
+Action:
+
+Consider defining a bean of type 'com.oburnett127.transactionservice.feign.TransactionServiceClient' in your configuration.
+
