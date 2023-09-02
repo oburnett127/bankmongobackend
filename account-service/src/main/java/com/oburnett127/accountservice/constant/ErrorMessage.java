@@ -2,7 +2,7 @@ package com.oburnett127.accountservice.constant;
 
 public interface ErrorMessage {
 
-    String MSG0 = "ERRORMSG0: Oops something went wrong";
+    String MSG0 = "ERRORMSG0: Something went wrong";
     String MSG1 = "ERRORMSG1: Amount must be specified for account id {}";
     String MSG2 = "ERRORMSG2: Amount must be a positive number";
     String MSG3 = "ERRORMSG3: Check must have a signature.";

@@ -13,7 +13,18 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <maven.compiler.release>${java.version}</maven.compiler.release>
     </properties>
+    <parent>
+        <groupId>com.oburnett127</groupId>
+        <artifactId>bankmongobackend</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
     <dependencies>
+        <dependency>
+            <groupId>com.oburnett127</groupId>
+            <artifactId>transaction-service</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -51,11 +62,6 @@
        </dependency>
        <dependency>
            <groupId>org.springframework.cloud</groupId>
-           <artifactId>spring-cloud-starter-sleuth</artifactId>
-           <version>3.1.9</version>
-       </dependency>
-       <dependency>
-           <groupId>org.springframework.cloud</groupId>
            <artifactId>spring-cloud-starter-zipkin</artifactId>
            <version>2.2.8.RELEASE</version>
        </dependency>
@@ -63,6 +69,12 @@
            <groupId>org.springframework.cloud</groupId>
            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
            <version>4.0.3</version>
+           <exclusions>
+                <exclusion>
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging</artifactId>
+                </exclusion>
+            </exclusions>
        </dependency>
         <dependency>
             <groupId>org.assertj</groupId>
@@ -240,6 +252,11 @@
             <artifactId>jakarta.persistence-api</artifactId>
             <version>3.1.0</version>
             <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+            <version>4.0.4</version>
         </dependency>
     </dependencies>
     <build>

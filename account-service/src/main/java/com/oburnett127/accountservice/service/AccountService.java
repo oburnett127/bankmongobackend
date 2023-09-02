@@ -5,6 +5,7 @@ import com.oburnett127.accountservice.VO.Transaction;
 import com.oburnett127.accountservice.model.Account;
 import com.oburnett127.accountservice.repository.AccountRepository;
 import com.oburnett127.accountservice.util.AccountValidator;
+import com.oburnett127.transactionservice.feign.TransactionServiceClient;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,14 +24,15 @@ public class AccountService implements AccountOperations {
 
     private final AccountRepository accountRepository;
     private final AccountValidator accountValidator;
-    private RestTemplate restTemplate;
+    private final TransactionServiceClient transactionServiceClient;
+    
 
     @Autowired
     public AccountService(final AccountRepository accountRepository, final AccountValidator accountValidator,
-                            final RestTemplate restTemplate) {
+                            final TransactionServiceClient transactionServiceClient) {
         this.accountRepository = accountRepository;
         this.accountValidator = accountValidator;
-        this.restTemplate = restTemplate;
+        this.transactionServiceClient = transactionServiceClient;
     }
 
     public AccountService(final AccountRepository accountRepository, final AccountValidator accountValidator) {
@@ -49,29 +51,6 @@ public class AccountService implements AccountOperations {
         final var account = accountRepository.getReferenceById(id);
         return account;
     }
-
-   @Override
-   @SneakyThrows
-   public ResponseTemplateVO getAccountWithHistory(final int id) {
-       ResponseTemplateVO vo = new ResponseTemplateVO();
-       final var account = accountRepository.getReferenceById(id);
-       String url = UriComponentsBuilder.fromHttpUrl("http://transaction-service/gettransbyaccount/{id}")
-        .buildAndExpand(id)
-        .toUriString();
-
-        ResponseEntity<List<Transaction>> response = restTemplate.exchange(
-            url,
-            HttpMethod.GET,
-            null,
-            new ParameterizedTypeReference<List<Transaction>>() {}
-        );
-
-        List<Transaction> transHistory = response.getBody();
-
-       vo.setAccount(account);
-       vo.setTransHistory(transHistory);
-       return vo;
-   }
 
     @Override
     public void createAccount(Account account) {
@@ -122,4 +101,27 @@ public class AccountService implements AccountOperations {
         accountRepository.save(receiverAccount);
         return senderAccount;
     }
+
+    //    @Override
+//    @SneakyThrows
+//    public ResponseTemplateVO getAccountWithHistory(final int id) {
+//        ResponseTemplateVO vo = new ResponseTemplateVO();
+//        final var account = accountRepository.getReferenceById(id);
+//        String url = UriComponentsBuilder.fromHttpUrl("http://transaction-service/gettransbyaccount/{id}")
+//         .buildAndExpand(id)
+//         .toUriString();
+
+//         ResponseEntity<List<Transaction>> response = restTemplate.exchange(
+//             url,
+//             HttpMethod.GET,
+//             null,
+//             new ParameterizedTypeReference<List<Transaction>>() {}
+//         );
+
+//         List<Transaction> transHistory = response.getBody();
+
+//        vo.setAccount(account);
+//        vo.setTransHistory(transHistory);
+//        return vo;
+//    }
 }
