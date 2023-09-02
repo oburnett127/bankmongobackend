@@ -2,11 +2,9 @@ package com.oburnett127.transactionservice.service;
 
 import com.oburnett127.transactionservice.model.Transaction;
 import com.oburnett127.transactionservice.repository.TransactionRepository;
-import com.oburnett127.transactionservice.util.TransactionValidator;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -14,11 +12,9 @@ import java.util.List;
 public class TransactionService implements TransactionOperations {
 
     private final TransactionRepository transactionRepository;
-    private final TransactionValidator transactionValidator;
 
-    public TransactionService(final TransactionRepository transactionRepository, final TransactionValidator transactionValidator) {
+    public TransactionService(final TransactionRepository transactionRepository) {
         this.transactionRepository = transactionRepository;
-        this.transactionValidator = transactionValidator;
     }
 
     @Override
@@ -29,14 +25,14 @@ public class TransactionService implements TransactionOperations {
     @Override
     @SneakyThrows
     public Transaction getTransactionById(final int id) {
-        final var transaction = transactionRepository.getReferenceById(id);
+        final Transaction transaction = transactionRepository.getReferenceById(id);
         return transaction;
     }
 
     @Override
     @SneakyThrows
     public List<Transaction> getTransactionsByAccountId(final int id) {
-        final var transactions = transactionRepository.getTransactionsByAccountId(id);
+        final List<Transaction> transactions = transactionRepository.getTransactionsByAccountId(id);
         return transactions;
     }
 
@@ -44,18 +40,4 @@ public class TransactionService implements TransactionOperations {
     public void createTransaction(Transaction transaction) {
         this.transactionRepository.save(transaction);
     }
-
-//    @Override
-//    @SneakyThrows
-//    public Transaction withdraw(int id, BigDecimal amount) {
-//        final var transaction = transactionRepository.getTransaction(id);
-//
-//        transactionValidator.withdraw(transaction, amount);
-//
-//        transaction.setBalance(transaction.getBalance().subtract(amount));
-//
-//        transactionRepository.save(transaction);
-//
-//        return transaction;
-//    }
 }

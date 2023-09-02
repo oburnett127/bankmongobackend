@@ -1,14 +1,11 @@
 package com.oburnett127.transactionservice.controller;
 
-import com.oburnett127.transactionservice.factory.TransactionFactory;
 import com.oburnett127.transactionservice.model.*;
 import com.oburnett127.transactionservice.service.TransactionService;
-
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
 import java.io.IOException;
 import java.util.List;
 
@@ -44,7 +41,6 @@ public class TransactionController {
 
     @PostMapping("/create")
     public ResponseEntity<Transaction> createTransaction(@Validated @RequestBody CreateTransactionRequest createTransactionRequest) throws IOException {
-        final TransactionFactory transactionFactory = new TransactionFactory();
         final var result = Transaction.builder()
                         .account(createTransactionRequest.getAccount())
                         .date(createTransactionRequest.getDate())
@@ -58,16 +54,4 @@ public class TransactionController {
         service.createTransaction(result);
         return ResponseEntity.ok(result);
     }
-
-// I don't think being able to update and delete transactions will be necessary at this point, but
-// I'm leaving some code in the controller and service classes in case I decided to implement
-//    @PostMapping("/update")
-//    public ResponseEntity<Transaction> updateTransaction
-//            (@Validated @RequestBody UpdateTransactionRequest updateTransactionRequest)
-//            throws IOException {
-//        final var id = transactionRequest.getId();
-//        final var amount = transactionRequest.getAmount();
-//        final var result = service.update(id, amount);
-//        return ResponseEntity.ok().body(result);
-//    }
 }
