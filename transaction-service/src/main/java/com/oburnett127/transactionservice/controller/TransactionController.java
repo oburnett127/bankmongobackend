@@ -28,14 +28,14 @@ public class TransactionController {
     }
 
     @GetMapping("/gettran")
-    public ResponseEntity<Transaction> getTransactionById(@Validated @RequestBody TransactionRequest transactionRequest) {
-        final var result = service.getTransactionById(transactionRequest.getId());
+    public ResponseEntity<Transaction> getTransactionById(@Validated @PathVariable int id) {
+        final var result = service.getTransactionById(id);
         return ResponseEntity.ok().body(result);
     }
 
     @GetMapping("/gettransbyaccount")
-    public ResponseEntity<List<Transaction>> getTransactionsByAccountId(@Validated @RequestBody TransactionRequest transactionRequest) {
-        final var result = service.getTransactionsByAccountId(transactionRequest.getId());
+    public ResponseEntity<List<Transaction>> getTransactionsByAccountId(@Validated int id) {
+        final var result = service.getTransactionsByAccountId(id);
         return ResponseEntity.ok().body(result);
     }
 

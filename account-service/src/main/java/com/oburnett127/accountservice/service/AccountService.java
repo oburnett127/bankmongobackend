@@ -4,9 +4,8 @@ import com.oburnett127.accountservice.VO.ResponseTemplateVO;
 import com.oburnett127.accountservice.model.Account;
 import com.oburnett127.accountservice.repository.AccountRepository;
 import com.oburnett127.accountservice.util.AccountValidator;
-import com.oburnett127.transactionservice.feign.TransactionServiceClient;
-import com.oburnett127.transactionservice.model.Transaction;
-import com.oburnett127.transactionservice.model.TransactionRequest;
+import com.oburnett127.common.feign.TransactionServiceClient;
+import com.oburnett127.common.model.Transaction;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -97,37 +96,12 @@ public class AccountService implements AccountOperations {
     @Override
     public ResponseTemplateVO getAccountWithHistory(int id) {
         final Account account = accountRepository.getReferenceById(id);
-        TransactionRequest req = TransactionRequest.builder()
-                                        .id(id)
-                                        .build();
-        ResponseEntity<List<Transaction>> transactions = transactionServiceClient.getTransactionsByAccountId(req);
+        
+        ResponseEntity<List<Transaction>> transactions = transactionServiceClient.getTransactionsByAccountId(id);
         ResponseTemplateVO vo = ResponseTemplateVO.builder()
                                     .account(account)
                                     .transHistory(transactions.getBody())
                                     .build();
         return vo;
     }
-
-    //    @Override
-//    @SneakyThrows
-//    public ResponseTemplateVO getAccountWithHistory(final int id) {
-//        ResponseTemplateVO vo = new ResponseTemplateVO();
-//        final var account = accountRepository.getReferenceById(id);
-//        String url = UriComponentsBuilder.fromHttpUrl("http://transaction-service/gettransbyaccount/{id}")
-//         .buildAndExpand(id)
-//         .toUriString();
-
-//         ResponseEntity<List<Transaction>> response = restTemplate.exchange(
-//             url,
-//             HttpMethod.GET,
-//             null,
-//             new ParameterizedTypeReference<List<Transaction>>() {}
-//         );
-
-//         List<Transaction> transHistory = response.getBody();
-
-//        vo.setAccount(account);
-//        vo.setTransHistory(transHistory);
-//        return vo;
-//    }
 }

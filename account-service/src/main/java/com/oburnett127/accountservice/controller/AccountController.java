@@ -36,14 +36,14 @@ public class AccountController {
     }
 
     @GetMapping("/get")
-    public ResponseEntity<Account> getAccount(@Validated @RequestBody AccountRequest accountRequest) {
-        final var account = service.getAccount(accountRequest.getId());
+    public ResponseEntity<Account> getAccount(@Validated @PathVariable int id) {
+        final var account = service.getAccount(id);
         return ResponseEntity.ok().body(account);
     }
 
-   @GetMapping("/gethistory")
-   public ResponseEntity<ResponseTemplateVO> getAccountWithHistory(@Validated @RequestBody AccountRequest accountRequest) {
-       final ResponseTemplateVO result = service.getAccountWithHistory(accountRequest.getId());
+   @GetMapping("/gethistory/{id}")
+   public ResponseEntity<ResponseTemplateVO> getAccountWithHistory(@Validated @PathVariable int id) {
+       final ResponseTemplateVO result = service.getAccountWithHistory(id);
        return ResponseEntity.ok().body(result);
    }
 

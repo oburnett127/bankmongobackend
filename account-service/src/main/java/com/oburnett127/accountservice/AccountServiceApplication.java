@@ -2,10 +2,11 @@ package com.oburnett127.accountservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-//@EnableEurekaClient
-@SpringBootApplication
+@EnableDiscoveryClient
+@SpringBootApplication(scanBasePackages = {"com.oburnett127.accountservice"})
 @EnableJpaRepositories
 public class AccountServiceApplication {
 

@@ -11,14 +11,11 @@ import com.oburnett127.accountservice.exception.SignatureMismatchException;
 import com.oburnett127.accountservice.exception.ZeroDepositException;
 import com.oburnett127.accountservice.exception.ZeroWithdrawException;
 import com.oburnett127.accountservice.model.Account;
-
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
-
 import java.math.BigDecimal;
-
 import java.util.function.Predicate;
 
 @Component
@@ -83,7 +80,7 @@ public class AccountValidator {
         validateTransactionAmount(amount, TransactionType.DEPOSIT);
     }
 
-    void validateTransactionAmount(BigDecimal amount, TransactionType transaction) {
+    public void validateTransactionAmount(BigDecimal amount, TransactionType transaction) {
         final Predicate<BigDecimal> isZero = (a) -> a == null || BigDecimal.ZERO.compareTo(a) >= 0;
 
         //Check to see if amount is 0, negative or null
