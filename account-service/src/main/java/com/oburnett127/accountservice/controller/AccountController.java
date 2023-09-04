@@ -29,7 +29,7 @@ public class AccountController {
     }
 
     @GetMapping("/list")
-    public ResponseEntity<List<Account>> view() {
+    public ResponseEntity<List<Account>> list() {
         final var result = service.listAll();
         return ResponseEntity.ok().body(result);
     }

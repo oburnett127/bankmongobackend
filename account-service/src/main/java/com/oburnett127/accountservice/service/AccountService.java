@@ -1,10 +1,12 @@
 package com.oburnett127.accountservice.service;
 
 import com.oburnett127.accountservice.VO.ResponseTemplateVO;
+import com.oburnett127.accountservice.constant.TransactionType;
 import com.oburnett127.accountservice.model.Account;
 import com.oburnett127.accountservice.repository.AccountRepository;
 import com.oburnett127.accountservice.util.AccountValidator;
 import com.oburnett127.common.feign.TransactionServiceClient;
+import com.oburnett127.common.model.CreateTransactionRequest;
 import com.oburnett127.common.model.Transaction;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -12,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -55,6 +58,16 @@ public class AccountService implements AccountOperations {
         accountValidator.withdraw(account, amount);
         account.setBalance(account.getBalance().subtract(amount));
         accountRepository.save(account);
+        final CreateTransactionRequest createTransactionRequest = CreateTransactionRequest.builder()
+                .account(id)
+                .date(new Date())
+                .description("withdraw from account " + id)
+                .transType(0)
+                .amount(amount)
+                .sender(null)
+                .receiver(null)
+                .build();
+        transactionServiceClient.createTransaction(createTransactionRequest);
         return account;
     }
 
@@ -67,6 +80,16 @@ public class AccountService implements AccountOperations {
         log.debug("account balance: {} amount: {}", account.getBalance(), amount);
         account.setBalance(account.getBalance().add(amount));
         accountRepository.save(account);
+        final CreateTransactionRequest createTransactionRequest = CreateTransactionRequest.builder()
+                .account(id)
+                .date(new Date())
+                .description("deposit in account " + id)
+                .transType(1)
+                .amount(amount)
+                .sender(null)
+                .receiver(null)
+                .build();
+        transactionServiceClient.createTransaction(createTransactionRequest);
         return account;
     }
 
@@ -77,6 +100,16 @@ public class AccountService implements AccountOperations {
         accountValidator.depositCheck(id, fullName, signature, amount);
         account.setBalance(account.getBalance().add(amount));
         accountRepository.save(account);
+        final CreateTransactionRequest createTransactionRequest = CreateTransactionRequest.builder()
+                .account(id)
+                .date(new Date())
+                .description("deposit check in account " + id)
+                .transType(2)
+                .amount(amount)
+                .sender(null)
+                .receiver(null)
+                .build();
+        transactionServiceClient.createTransaction(createTransactionRequest);
         return account;
     }
 
@@ -90,6 +123,16 @@ public class AccountService implements AccountOperations {
         receiverAccount.setBalance(receiverAccount.getBalance().add(amount));
         accountRepository.save(senderAccount);
         accountRepository.save(receiverAccount);
+        final CreateTransactionRequest createTransactionRequest = CreateTransactionRequest.builder()
+                .account(idSender)
+                .date(new Date())
+                .description("transfer from account " + idSender + " to account " + idReceiver)
+                .transType(3)
+                .amount(amount)
+                .sender(idSender)
+                .receiver(idReceiver)
+                .build();
+        transactionServiceClient.createTransaction(createTransactionRequest);
         return senderAccount;
     }
 
