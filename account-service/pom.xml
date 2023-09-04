@@ -7,11 +7,6 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>account-service</name>
     <description>account-service for bankmongo application</description>
-    <properties>
-        <maven.compiler.source>${java.version}</maven.compiler.source>
-        <maven.compiler.target>${java.version}</maven.compiler.target>
-        <maven.compiler.release>${java.version}</maven.compiler.release>
-    </properties>
     <parent>
         <groupId>com.oburnett127</groupId>
         <artifactId>bankmongobackend</artifactId>

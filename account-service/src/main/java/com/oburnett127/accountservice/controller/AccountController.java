@@ -3,7 +3,6 @@ package com.oburnett127.accountservice.controller;
 import com.oburnett127.accountservice.VO.ResponseTemplateVO;
 import com.oburnett127.accountservice.constant.DebugMessage;
 import com.oburnett127.accountservice.model.Account;
-import com.oburnett127.accountservice.model.AccountRequest;
 import com.oburnett127.accountservice.model.CreateAccountRequest;
 import com.oburnett127.accountservice.model.DepositCheckRequest;
 import com.oburnett127.accountservice.model.DepositRequest;
@@ -43,8 +42,8 @@ public class AccountController {
 
    @GetMapping("/gethistory/{id}")
    public ResponseEntity<ResponseTemplateVO> getAccountWithHistory(@Validated @PathVariable int id) {
-       final ResponseTemplateVO result = service.getAccountWithHistory(id);
-       return ResponseEntity.ok().body(result);
+        final ResponseTemplateVO result = service.getAccountWithHistory(id);
+        return ResponseEntity.ok().body(result);
    }
 
     @PostMapping("/create")

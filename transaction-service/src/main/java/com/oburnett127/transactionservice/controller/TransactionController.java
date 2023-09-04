@@ -34,7 +34,7 @@ public class TransactionController {
     }
 
     @GetMapping("/gettransbyaccount")
-    public ResponseEntity<List<Transaction>> getTransactionsByAccountId(@Validated int id) {
+    public ResponseEntity<List<Transaction>> getTransactionsByAccountId(@RequestParam("id") @Validated int id) {
         final var result = service.getTransactionsByAccountId(id);
         return ResponseEntity.ok().body(result);
     }

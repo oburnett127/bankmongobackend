@@ -4,6 +4,7 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 *.log
+*.hprof
 
 ### STS ###
 .apt_generated
@@ -32,5 +33,3 @@ build/
 
 ### VS Code ###
 .vscode/
-
-*.hprof

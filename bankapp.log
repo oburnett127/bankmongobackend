@@ -139,3 +139,18 @@ Action:
 
 Identify and stop the process that's listening on port 9002 or configure this application to listen on another port.
 
+2023-09-04 06:19:33,215 ERROR o.s.b.d.LoggingFailureAnalysisReporter [restartedMain] 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Parameter 2 of constructor in com.oburnett127.accountservice.service.AccountService required a bean of type 'com.oburnett127.common.feign.TransactionServiceClient' that could not be found.
+
+
+Action:
+
+Consider defining a bean of type 'com.oburnett127.common.feign.TransactionServiceClient' in your configuration.
+

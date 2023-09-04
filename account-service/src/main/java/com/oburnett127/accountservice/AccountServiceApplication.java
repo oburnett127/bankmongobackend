@@ -6,7 +6,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @EnableDiscoveryClient
-@SpringBootApplication(scanBasePackages = {"com.oburnett127.accountservice"})
+@SpringBootApplication(scanBasePackages = {"com.oburnett127"})
 @EnableJpaRepositories
 public class AccountServiceApplication {
 
