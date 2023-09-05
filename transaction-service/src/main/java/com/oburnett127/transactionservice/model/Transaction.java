@@ -9,6 +9,8 @@ import lombok.Setter;
 import lombok.ToString;
 import java.math.BigDecimal;
 import java.util.Date;
+import org.hibernate.proxy.HibernateProxy;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -39,8 +41,8 @@ public class Transaction {
     private int transType;
     @Basic(optional = false)
     private BigDecimal amount;
-    @Basic(optional = false)
+    @Basic(optional = true)
     private Integer sender;
-    @Basic(optional = false)
+    @Basic(optional = true)
     private Integer receiver;
 }

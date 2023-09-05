@@ -13,8 +13,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-
 import java.math.BigDecimal;
+import org.hibernate.proxy.HibernateProxy;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Getter
 @Setter
